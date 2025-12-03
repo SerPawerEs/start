@@ -1,7 +1,7 @@
 const verbtn = document.getElementById('ver')
 const input = document.getElementById('input')
 const alerta = document.getElementById('alert')
-const cds = 'panconqueso'
+const cds = 'Rawr'
 const version = '1.1'
 
 console.log(`Update: ${version}`)
