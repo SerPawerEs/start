@@ -2,7 +2,7 @@ const verbtn = document.getElementById('ver')
 const input = document.getElementById('input')
 const alerta = document.getElementById('alert')
 const cds = 'panconqueso'
-const version = '1.0'
+const version = '1.1'
 
 console.log(`Update: ${version}`)
 
@@ -18,7 +18,7 @@ function verify(event){
     if(input.value === cds){
         alerta.innerHTML = `*cargando siguiente pagina`
         alerta.style.color = 'rgb(120, 255, 120)'
-        window.location.href = 'http://serpawer.servegame.com'
+        window.location.href = 'http://serpawer.servegame.com:31337'
         event.preventDefault()
     }else{
         alerta.innerHTML = `*contraseña incorrecta`
