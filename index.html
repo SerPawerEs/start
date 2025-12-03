@@ -3,13 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
+    <title>Inicio</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/png" href="dinoicon.png">
 </head>
 <body>
-    <div id="div">
-        <p><h1>Espere - Redirigiendo</h1></p>
-        <p>si esta pagina no le redirige automaticamente, actualize la página, si continua sin redirigir, la pagina de destino que busca no está en linea</p>
+    <div class="gen-container">
+        <div class="container">
+            <form onsubmit="return verify(event)">
+                <p><h2>Ingrese la contraseña</h2></p>
+                <input type="password" id="input" placeholder="Contraseña" required>
+                <button type="button" id="ver">Ver</button><br>
+                <p id="alert"></p>
+                <button type="submit" id="submit">Continuar</button>
+            </form>
+        </div>
     </div>
-    <script src="script.js"></script>
+
+
+    <script>
+        const verbtn = document.getElementById('ver')
+        const input = document.getElementById('input')
+        const alerta = document.getElementById('alert')
+        const clave = 'Rawr'
+        const version = '1.0'
+
+        console.log(`Update: ${version}`)
+
+        verbtn.addEventListener("click", () => {
+            if (input.type === 'password'){
+                input.type = 'text'
+            }else{
+                input.type = 'password'
+            }
+        })
+
+        function verify(event){
+            if(input.value === clave){
+                alerta.innerHTML = `*cargando siguiente pagina`
+                alerta.style.color = 'rgb(120, 255, 120)'
+                window.location.href = 'http://serpawer.servegame.com'
+                event.preventDefault()
+            }else{
+                alerta.innerHTML = `*contraseña incorrecta`
+                alerta.style.color = 'rgb(255, 117, 117)'
+                event.preventDefault()
+            }
+        }
+    </script>
+
 </body>
 </html>
