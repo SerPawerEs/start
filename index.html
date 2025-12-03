@@ -25,7 +25,7 @@
         const verbtn = document.getElementById('ver')
         const input = document.getElementById('input')
         const alerta = document.getElementById('alert')
-        const clave = 'Rawr'
+        const cds = 'Rawr'
         const version = '1.0'
 
         console.log(`Update: ${version}`)
@@ -39,7 +39,7 @@
         })
 
         function verify(event){
-            if(input.value === clave){
+            if(input.value === cds){
                 alerta.innerHTML = `*cargando siguiente pagina`
                 alerta.style.color = 'rgb(120, 255, 120)'
                 window.location.href = 'http://serpawer.servegame.com'
