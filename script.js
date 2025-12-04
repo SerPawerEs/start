@@ -2,7 +2,7 @@ const verbtn = document.getElementById('ver')
 const input = document.getElementById('input')
 const alerta = document.getElementById('alert')
 const cds = 'Rawr'
-const version = '1.1'
+const version = '1.2'
 
 console.log(`Update: ${version}`)
 
@@ -15,7 +15,7 @@ verbtn.addEventListener("click", () => {
 })
 
 function verify(event){
-    if(input.value === cds){
+    if(input.value.includes(cds)){
         alerta.innerHTML = `*cargando siguiente pagina`
         alerta.style.color = 'rgb(120, 255, 120)'
         window.location.href = 'http://serpawer.servegame.com:31337'
