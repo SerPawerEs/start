@@ -18,7 +18,7 @@ function verify(event){
     if(input.value.includes(cds)){
         alerta.innerHTML = `*cargando siguiente pagina`
         alerta.style.color = 'rgb(120, 255, 120)'
-        window.location.href = 'http://serpawer.servegame.com:31337'
+        window.location.href = 'https://serpaweres.github.io/galaxy'
         event.preventDefault()
     }else{
         alerta.innerHTML = `*contraseña incorrecta`
