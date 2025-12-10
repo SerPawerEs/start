@@ -27,7 +27,7 @@ function verify(event){
         if(input.value.trim() == clave){
             alerta.innerHTML = `*cargando siguiente pagina`
             alerta.style.color = 'rgb(120, 255, 120)'
-            localStorage.setItem('LoggedIn', 'true')
+            localStorage.setItem('LoggedIn', 'key')
             window.location.href = 'https://serpaweres.github.io/galaxy'
         }else{
             alerta.innerHTML = `*contraseña incorrecta`
