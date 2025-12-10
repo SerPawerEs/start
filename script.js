@@ -1,7 +1,7 @@
 const verbtn = document.getElementById('ver')
 const input = document.getElementById('input')
 const alerta = document.getElementById('alert')
-const version = '1.2'
+const version = '1.4'
 
 console.log(`Update: ${version}`)
 
@@ -28,7 +28,7 @@ function verify(event){
             alerta.innerHTML = `*cargando siguiente pagina`
             alerta.style.color = 'rgb(120, 255, 120)'
             localStorage.setItem('LoggedIn', 'key')
-            window.location.href = 'https://serpaweres.github.io/galaxy'
+            window.location.href = 'https://serpaweres.github.io/main'
         }else{
             alerta.innerHTML = `*contraseña incorrecta`
             alerta.style.color = 'rgb(255, 117, 117)'
