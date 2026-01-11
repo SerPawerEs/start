@@ -24,7 +24,7 @@ function verify(event){
     db.ref('users').on('value', (data) => {
         const datos = data.val()
         const clave = Object.entries(datos).map(([key, val]) => val.clave)
-        if(input.value.trim() == clave){
+        if(input.value.trim().toLowerCase() == clave){
             alerta.innerHTML = `*cargando siguiente pagina`
             alerta.style.color = 'rgb(120, 255, 120)'
             localStorage.setItem('LoggedIn', 'key')
