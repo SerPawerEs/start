@@ -126,7 +126,7 @@ header div a:hover{
 main{
     display: auto;
     padding: 0;
-    margin: 20px 40px;
+    margin: 20px 20px;
     display: flex;
 }
 
@@ -137,7 +137,7 @@ main{
     flex-direction: column;
     outline-style: dashed;
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px;
     margin: 0;
     background-color: rgba(255, 255, 255, 0.9);
     overflow-y: scroll;
