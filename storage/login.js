@@ -28,7 +28,7 @@ function verify(event){
             alerta.innerHTML = `*cargando siguiente pagina`
             alerta.style.color = 'rgb(120, 255, 120)'
             localStorage.setItem('LoggedIn', 'key')
-            window.location.href = '/auth.html'
+            window.location.href = 'start/auth.html'
         }else{
             alerta.innerHTML = `*contraseña incorrecta`
             alerta.style.color = 'rgb(255, 117, 117)'
