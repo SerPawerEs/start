@@ -1,7 +1,7 @@
 const verbtn = document.getElementById('ver')
 const input = document.getElementById('input')
 const alerta = document.getElementById('alert')
-const version = '2.0'
+const version = '2.1'
 
 console.log(`Update: ${version}`)
 
