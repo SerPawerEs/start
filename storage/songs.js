@@ -1,5 +1,6 @@
 //container
 const content_container = document.getElementById('content_container')
+const scont = document.getElementById('scont')
 //songs_mp3
 const songsnames = [
     'M.A.I', 'Dandelions', 'Mi corazon es tuyo', 'Hadal Ahbek', 'I wanna be yours'
@@ -20,7 +21,7 @@ songsnames.forEach((song, audio) => {
     content.className = 'content'
     content.innerHTML = `▶️ ${song}`
     content_container.appendChild(content)
-    document.body.appendChild(audiomp3)
+    scont.appendChild(audiomp3)
     contents.push(content)
 
     function playing(){
