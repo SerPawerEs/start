@@ -1,3 +1,7 @@
+*{
+    font-family: sans-serif;
+}
+
 html, body{
     background-image: url('../content/dinofondo.jpg');
     margin: 0;
@@ -7,6 +11,14 @@ html, body{
     grid-template-rows: 10% 90% 0%;
     touch-action: none;
     overscroll-behavior: none;
+}
+
+.caudio{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 25px;
+    display: none;
 }
 
 /*login*/

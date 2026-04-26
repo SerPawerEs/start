@@ -12,18 +12,27 @@ const contents = []
 songsnames.forEach((song, audio) => {
     const mp3 = songsmp3[audio]
     const audiomp3 = new Audio(mp3)
+    audiomp3.controls = true
     audiomp3.loop = true
+    audiomp3.className = 'caudio'
     songsloaded.push(audiomp3)
     const content = document.createElement('div')
     content.className = 'content'
     content.innerHTML = `▶️ ${song}`
     content_container.appendChild(content)
+    document.body.appendChild(audiomp3)
     contents.push(content)
 
     function playing(){
         return songsloaded.some(song => !song.paused)
     }
-
+    audiomp3.addEventListener('timeupdate', () => {
+        if(!playing()){
+            content.innerHTML = `▶️ ${song}`
+        }else{
+            content.innerHTML = `⏸️ ${song}`
+        }
+    })
     content.addEventListener('click', () => {
         if(playing()){
             audiomp3.pause()
@@ -31,6 +40,12 @@ songsnames.forEach((song, audio) => {
         }else{
             audiomp3.play()
             content.innerHTML = `⏸️ ${song}`
+            const audios = document.querySelectorAll('audio')
+            audios.forEach(audio => {
+                audio.style.display = 'none'
+                console.log(audio)
+            })
+            audiomp3.style.display = 'flex'
         }
     })
 })

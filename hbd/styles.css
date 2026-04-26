@@ -1,0 +1,41 @@
+body{
+    grid-template-rows: 1fr;
+}
+
+
+main{
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(250, 181, 255, 0.75));
+    padding: 10px;
+    border-radius: 10px;
+    border-style: solid;
+    transition: all 0.2s ease;
+    margin: 0px;
+}
+
+h1:hover{
+    transform: translate(0, -2px);
+    box-shadow: rgb(239, 114, 255) 5px 5px 10px;
+}
+
+main p{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(250, 181, 255, 0.9));
+    padding: 10px;
+    border-radius: 10px;
+    border-style: solid;
+    transition: all 0.2s ease;
+}
+
+main p:hover{
+    transform: translate(0, -2px);
+    box-shadow: rgb(239, 114, 255) 5px 5px 10px;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+}
