@@ -72,7 +72,7 @@ function actualizarContador() {
     if (objetivo2 >= 0) {
         timer3.innerHTML = `<br>Faltan ${objetivo2} dias <br>${horaa} horas <br>${mina} minutos <br>${sega} segundos`
     }else{
-        timer3.innerHTML = `<br>Ya llegó la fecha!`
+        timer3.innerHTML = `<br>Llego!`
     }
     titulo('<strong>⌛ Su cumple 🎂</strong>', timer3)
 
