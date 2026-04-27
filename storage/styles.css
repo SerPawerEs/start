@@ -9,8 +9,6 @@ html, body{
     width: 100%;
     display: grid;
     grid-template-rows: 10% 90% 0%;
-    touch-action: none;
-    overscroll-behavior: none;
 }
 
 #scont{
