@@ -1,4 +1,4 @@
-const version = '2.01' //no modificar
+const version = '3.00' //no modificar
 
 
 //General
