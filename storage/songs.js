@@ -3,7 +3,7 @@ const content_container = document.getElementById('content_container')
 const scont = document.getElementById('scont')
 //songs_mp3
 const songsnames = [
-    'M.A.I', 'Dandelions', 'Mi corazon es tuyo', 'Hadal Ahbek', 'I wanna be yours'
+    'M.A.I', 'Dandelions', 'Mi corazon es tuyo', 'Hadal Ahbek', 'I wanna be yours', 'A vos'
 ]
 const songsmp3 = songsnames.map(song => 'audios/' + song + '.mp3')
 const songsloaded = []

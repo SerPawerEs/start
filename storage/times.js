@@ -7,7 +7,7 @@ const lafecha = document.getElementById('lafecha')
 //TIMES
 
 const fechaObjetivo1 = '2025-11-26'
-const fechaObjetivo2 = '2026-04-27'
+const fechaObjetivo2 = '2027-04-27'
 
 function diasEntre(fechaFin) {
     const hoy = new Date();
@@ -72,17 +72,21 @@ function actualizarContador() {
     if (objetivo2 >= 0) {
         timer3.innerHTML = `<br>Faltan ${objetivo2} dias <br>${horaa} horas <br>${mina} minutos <br>${sega} segundos`
     }else{
-        timer3.innerHTML = `<br>Llego!`
+        timer3.innerHTML = `<br>Llegó!`
     }
     titulo('<strong>⌛ Su cumple 🎂</strong>', timer3)
 
     if (hora-1 == 16 && min-1 == 16) {
         lafecha.style.background = 'linear-gradient(90deg, rgb(255, 116, 116), rgba(255, 70, 218, 0.5)'
         lafecha.style.textAlign = 'center'
+        lafecha.style.borderRadius = '10px'
+        lafecha.style.border = 'solid'
         lafecha.innerHTML = '⏰ 🦖 <strong>16:16</strong> 🦖 💗'
     } else {
         lafecha.style.background = 'linear-gradient(90deg, rgb(133, 133, 133), rgba(255, 255, 255, 0.5)'
-        lafecha.style.textAlign = 'unset'
+        lafecha.style.textAlign = 'center'
+        lafecha.style.borderRadius = '10px'
+        lafecha.style.border = 'solid'
         lafecha.innerHTML = '⏰ <strong>16:16</strong> 💗'
     }
 }
