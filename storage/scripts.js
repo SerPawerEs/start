@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //if(localStorage.getItem('LoggedIn') == 'true'){checkDate()}else{window.location.href = 'https://serpaweres.github.io/start'}
     //Volver a comprobar
     iniciarCuenta()
-    OpenEmergent()
 })
 
 
