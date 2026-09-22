@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21 de Septiembre 🌻</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fffde7 0%, #fff59d 50%, #ffee58 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Lluvia de pétalos amarillos en segundo plano */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .falling-petal {
+            position: absolute;
+            top: -5%;
+            width: 14px;
+            height: 22px;
+            background: linear-gradient(to bottom, #ffee58, #fbc02d);
+            border-radius: 50% 50% 50% 0%;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Tarjeta Principal */
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 40px 25px;
+            max-width: 540px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(245, 127, 23, 0.18);
+            border: 2px solid rgba(255, 235, 59, 0.6);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #f57f17;
+            font-size: 2.1rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #fbc02d;
+            font-size: 0.88rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* --- RAMILLETE COMBINADO: GIRASOL + TULIPANES --- */
+        .flower-bouquet {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 15px;
+            height: 195px;
+            margin-bottom: 25px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .flower {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.4s ease;
+        }
+
+        .flower:hover {
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        /* Tallo General */
+        .stem {
+            width: 8px;
+            height: 95px;
+            background: linear-gradient(to right, #7cb342, #558b2f);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        /* Hojas */
+        .leaf {
+            position: absolute;
+            width: 18px;
+            height: 40px;
+            background: linear-gradient(to top, #689f38, #8bc34a);
+            border-radius: 0% 100% 0% 100%;
+            bottom: 15px;
+            left: -14px;
+            transform: rotate(-25deg);
+        }
+
+        .leaf.right {
+            left: 3px;
+            border-radius: 100% 0% 100% 0%;
+            transform: rotate(25deg);
+        }
+
+        /* --- 1. DISEÑO TULIPÁN AMARILLO --- */
+        .tulip-head {
+            position: relative;
+            width: 46px;
+            height: 60px;
+            margin-bottom: -2px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .tulip-petal {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 56px;
+            background: linear-gradient(to top, #fbc02d 0%, #ffee58 70%, #fff59d 100%);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: inset 0 -4px 8px rgba(245, 127, 23, 0.2);
+        }
+
+        .tulip-petal.left {
+            left: 0;
+            transform: rotate(-12deg);
+            z-index: 1;
+        }
+
+        .tulip-petal.right {
+            right: 0;
+            transform: rotate(12deg);
+            z-index: 1;
+        }
+
+        .tulip-petal.middle {
+            left: 8px;
+            width: 30px;
+            height: 60px;
+            background: linear-gradient(to top, #f9a825 0%, #fdd835 80%, #fffde7 100%);
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* --- 2. DISEÑO GIRASOL CENTRAL --- */
+        .sunflower-container {
+            transform: scale(1.15);
+            z-index: 3;
+        }
+
+        .sunflower-container:hover {
+            transform: scale(1.25) translateY(-5px);
+        }
+
+        .sunflower-head {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin-bottom: -10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+        }
+
+        .sunflower-center {
+            width: 36px;
+            height: 36px;
+            background: radial-gradient(circle, #4e342e 0%, #3e2723 100%);
+            border-radius: 50%;
+            z-index: 5;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+            border: 2px stroke #5d4037;
+        }
+
+        .sf-petal {
+            position: absolute;
+            width: 16px;
+            height: 42px;
+            background: linear-gradient(to top, #f57f17, #fbc02d, #ffee58);
+            border-radius: 50% 50% 20% 20%;
+            transform-origin: center bottom;
+            bottom: 50%;
+            left: calc(50% - 8px);
+        }
+
+        /* 12 Pétalos para el girasol */
+        .sf-petal:nth-child(1)  { transform: rotate(0deg); }
+        .sf-petal:nth-child(2)  { transform: rotate(30deg); }
+        .sf-petal:nth-child(3)  { transform: rotate(60deg); }
+        .sf-petal:nth-child(4)  { transform: rotate(90deg); }
+        .sf-petal:nth-child(5)  { transform: rotate(120deg); }
+        .sf-petal:nth-child(6)  { transform: rotate(150deg); }
+        .sf-petal:nth-child(7)  { transform: rotate(180deg); }
+        .sf-petal:nth-child(8)  { transform: rotate(210deg); }
+        .sf-petal:nth-child(9)  { transform: rotate(240deg); }
+        .sf-petal:nth-child(10) { transform: rotate(270deg); }
+        .sf-petal:nth-child(11) { transform: rotate(300deg); }
+        .sf-petal:nth-child(12) { transform: rotate(330deg); }
+
+        /* Carta */
+        .letter-box {
+            background: #fffde7;
+            border: 2px dashed #fbc02d;
+            border-radius: 18px;
+            padding: 25px 20px;
+            margin-top: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(255, 235, 59, 0.3);
+        }
+
+        .letter-content {
+            font-family: 'Caveat', cursive;
+            font-size: 1.65rem;
+            color: #5d4037;
+            line-height: 1.4;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Botón Interactivo */
+        .btn {
+            background: linear-gradient(45deg, #fbc02d, #f57f17);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 8px 15px rgba(245, 127, 23, 0.25);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(245, 127, 23, 0.35);
+            background: linear-gradient(45deg, #fdd835, #f57f17);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="petals-container" id="petalsContainer"></div>
+
+    <div class="card">
+        <h1>¡Feliz 21 de Septiembre!</h1>
+        <div class="subtitle">Girasoles y Tulipanes Amarillos</div>
+
+        <!-- Ramillete Mixto: Tulipán + Girasol + Tulipán -->
+        <div class="flower-bouquet" onclick="createBurst(event)">
+            
+            <!-- Tulipán Izquierdo -->
+            <div class="flower">
+                <div class="tulip-head">
+                    <div class="tulip-petal left"></div>
+                    <div class="tulip-petal right"></div>
+                    <div class="tulip-petal middle"></div>
+                </div>
+                <div class="stem">
+                    <div class="leaf"></div>
+                </div>
+            </div>
+
+            <!-- Girasol Central -->
+            <div class="flower sunflower-container">
+                <div class="sunflower-head">
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sf-petal"></div>
+                    <div class="sunflower-center"></div>
+                </div>
+                <div class="stem" style="height: 105px;">
+                    <div class="leaf"></div>
+                    <div class="leaf right"></div>
+                </div>
+            </div>
+
+            <!-- Tulipán Derecho -->
+            <div class="flower">
+                <div class="tulip-head">
+                    <div class="tulip-petal left"></div>
+                    <div class="tulip-petal right"></div>
+                    <div class="tulip-petal middle"></div>
+                </div>
+                <div class="stem">
+                    <div class="leaf right"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="letter-box">
+            <div class="letter-content" id="letterText">
+                "🌻 21 de Septiembre 🌻"
+            </div>
+        </div>
+
+        <button class="btn" onclick="changeMessage()">Siguiente mensaje ✨</button>
+    </div>
+
+    <script>
+        // Lluvia constante de pétalos amarillos
+        const petalsContainer = document.getElementById('petalsContainer');
+
+        function createFallingPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('falling-petal');
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 3 + 4 + 's';
+            petal.style.width = Math.random() * 8 + 10 + 'px';
+            petal.style.height = Math.random() * 12 + 16 + 'px';
+            
+            petalsContainer.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, 7000);
+        }
+
+        setInterval(createFallingPetal, 250);
+
+        // Mensajes interactivos
+        const messages = [
+            "\"🌻 21 de Septiembre 🌻\"",
+            "\"Le regalo estas flores amarillas para que recuerde lo especial que es para mi. Que pase un bonito dia y que no olvide lo mucho que la quiero y lo feliz que hace mi vida\"",
+            "\"No se le olvide nunca que la amo mucho y que nunca la voy a dejar podemos pelear millones de veces pero usted siempre sera lo mas importante del mundo para mi\"",
+            "\"Y si somos usted y yo contra el mundo no me voy a alejar de su lado asi tengamos que vivir en otro planeta\"",
+            "\"Como el girasol que busca al sol mi corazon la busca a vos\nFeliz 21 de Septiembre 🌻\""
+        ];
+
+        let messageIndex = 0;
+
+        function changeMessage() {
+            const letterText = document.getElementById('letterText');
+            letterText.style.opacity = 0;
+            letterText.style.transform = 'translateY(10px)';
+            letterText.style.transition = 'all 0.4s ease';
+
+            setTimeout(() => {
+                messageIndex = (messageIndex + 1) % messages.length;
+                letterText.innerText = messages[messageIndex];
+                letterText.style.opacity = 1;
+                letterText.style.transform = 'translateY(0)';
+            }, 400);
+        }
+
+        // Efecto de chispa/estrellas al tocar las flores
+        function createBurst(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 14; i++) {
+                const spark = document.createElement('div');
+                spark.innerText = '✨';
+                spark.style.position = 'fixed';
+                spark.style.left = x + 'px';
+                spark.style.top = y + 'px';
+                spark.style.pointerEvents = 'none';
+                spark.style.zIndex = 100;
+                spark.style.transition = 'all 0.8s ease-out';
+                
+                document.body.appendChild(spark);
+
+                const angle = (i * 25.7) * Math.PI / 180;
+                const velocity = Math.random() * 90 + 50;
+                const destX = x + Math.cos(angle) * velocity;
+                const destY = y + Math.sin(angle) * velocity;
+
+                requestAnimationFrame(() => {
+                    spark.style.transform = `translate(${destX - x}px, ${destY - y}px) scale(0)`;
+                    spark.style.opacity = 0;
+                });
+
+                setTimeout(() => spark.remove(), 800);
+            }
+        }
+    </script>
+</body>
+</html>

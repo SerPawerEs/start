@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor Mini</title>
+    <link rel="stylesheet" href="storage/styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 15px;
+            background: #181818;
+            color: #fff;
+            font-family: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .popup-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ff52a0;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .popup-controls-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .popup-section-title {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .popup-btn-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .popup-action-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: #282828;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .popup-action-btn:hover {
+            background: #383838;
+        }
+        .popup-action-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #ff52a0;
+        }
+    </style>
+</head>
+<body>
+    <div id="popup-song-title" class="popup-title">Reproduciendo...</div>
+
+    <!-- Barra de progreso y tiempo -->
+    <div class="popup-controls-row">
+        <button id="caudio-playBtn" class="caudio-play-btn" aria-label="Reproducir/Pausar">
+            <svg id="caudio-icon-play" class="caudio-play-btn-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+            <svg id="caudio-icon-pause" class="caudio-play-btn-svg" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+        </button>
+        <div class="caudio-progress-container" style="flex:1;">
+            <input type="range" id="caudio-progressBar" class="caudio-progress-bar" value="0" min="0" max="100">
+        </div>
+        <span id="caudio-timeDisplay" class="caudio-time-display">0:00 / 0:00</span>
+    </div>
+
+    <!-- Volumen -->
+    <div>
+        <div class="popup-section-title">Volumen</div>
+        <div class="caudio-volume-control" style="width:100%;">
+            <svg class="caudio-volume-svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"></path></svg>
+            <input type="range" id="caudio-volumeSlider" class="caudio-volume-bar" min="0" max="1" step="0.05" value="1" style="flex:1;">
+        </div>
+    </div>
+
+    <!-- Velocidad -->
+    <div>
+        <div class="popup-section-title">Velocidad</div>
+        <div class="caudio-speed-options" style="justify-content:space-between;">
+            <button class="caudio-speed-btn" data-speed="0.5">0.5x</button>
+            <button class="caudio-speed-btn caudio-speed-active" data-speed="1">1x</button>
+            <button class="caudio-speed-btn" data-speed="1.25">1.25x</button>
+            <button class="caudio-speed-btn" data-speed="1.5">1.5x</button>
+            <button class="caudio-speed-btn" data-speed="2">2x</button>
+        </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="popup-btn-row">
+        <a id="caudio-downloadLink" class="popup-action-btn" href="#" download>
+            <span>Descargar</span>
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></svg>
+        </a>
+        <button id="caudio-returnBtn" class="popup-action-btn">
+            <span>Regresar a la página</span>
+            <svg viewBox="0 0 24 24"><path d="M19 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H19v-2z"></path></svg>
+        </button>
+    </div>
+
+    <script>
+        const songPath = localStorage.getItem('popup_song_path');
+        const songName = localStorage.getItem('popup_song_name') || 'Audio';
+        const songTime = parseFloat(localStorage.getItem('popup_song_time') || 0);
+        const songSpeed = parseFloat(localStorage.getItem('popup_song_speed') || 1);
+        const songVolume = parseFloat(localStorage.getItem('popup_song_volume') || 1);
+
+        document.getElementById('popup-song-title').textContent = songName;
+
+        const audio = new Audio(songPath);
+        audio.currentTime = songTime;
+        audio.playbackRate = songSpeed;
+        audio.volume = songVolume;
+        audio.loop = true;
+
+        const playBtn = document.getElementById('caudio-playBtn');
+        const iconPlay = document.getElementById('caudio-icon-play');
+        const iconPause = document.getElementById('caudio-icon-pause');
+        const progressBar = document.getElementById('caudio-progressBar');
+        const timeDisplay = document.getElementById('caudio-timeDisplay');
+        const volumeSlider = document.getElementById('caudio-volumeSlider');
+        const speedButtons = document.querySelectorAll('.caudio-speed-btn');
+        const downloadLink = document.getElementById('caudio-downloadLink');
+        const returnBtn = document.getElementById('caudio-returnBtn');
+
+        downloadLink.href = songPath;
+        downloadLink.download = `${songName}.mp3`;
+        volumeSlider.value = songVolume;
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function updateUI(isPlaying) {
+            iconPlay.style.display = isPlaying ? 'none' : 'block';
+            iconPause.style.display = isPlaying ? 'block' : 'none';
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        });
+
+        audio.addEventListener('play', () => updateUI(true));
+        audio.addEventListener('pause', () => updateUI(false));
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const percentage = (audio.currentTime / audio.duration) * 100;
+                progressBar.value = percentage;
+                progressBar.style.background = `linear-gradient(to right, #ff52a0 ${percentage}%, #2a2a2a ${percentage}%)`;
+                timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+            }
+        });
+
+        progressBar.addEventListener('input', () => {
+            if (audio.duration) {
+                audio.currentTime = (progressBar.value / 100) * audio.duration;
+            }
+        });
+
+        volumeSlider.addEventListener('input', () => {
+            audio.volume = volumeSlider.value;
+        });
+
+        speedButtons.forEach(btn => {
+            if (parseFloat(btn.dataset.speed) === songSpeed) {
+                speedButtons.forEach(b => b.classList.remove('caudio-speed-active'));
+                btn.classList.add('caudio-speed-active');
+            }
+            btn.addEventListener('click', () => {
+                speedButtons.forEach(b => b.classList.remove('caudio-speed-active'));
+                btn.classList.add('caudio-speed-active');
+                audio.playbackRate = parseFloat(btn.dataset.speed);
+            });
+        });
+
+        function saveReturnData() {
+            localStorage.setItem('popup_return_path', songPath);
+            localStorage.setItem('popup_return_time', audio.currentTime);
+            localStorage.setItem('popup_return_speed', audio.playbackRate);
+            localStorage.setItem('popup_return_volume', audio.volume);
+        }
+
+        returnBtn.addEventListener('click', () => {
+            saveReturnData();
+            window.close();
+        });
+
+        // Asegura transferir datos si la ventana se cierra con el botón "X"
+        window.addEventListener('beforeunload', () => {
+            saveReturnData();
+        });
+
+        audio.play();
+    </script>
+</body>
+</html>

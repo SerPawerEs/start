@@ -50,7 +50,6 @@ html, body{
 .caudio{
     width: 100%;
     margin: -55px 20px 15px;
-    display: none;
 }
 
 /*login*/
@@ -172,6 +171,7 @@ header div a:hover{
 main{
     display: auto;
     padding: 0;
+    justify-content: center;
     margin: 20px 20px;
     display: flex;
 }
@@ -180,6 +180,7 @@ main{
     background-image: url(../content/texture4.png);
     background-size: 100% 100%;
     background-position: center;
+    max-width: 400px;
     width: 100%;
     user-select: none;
     display: flex;
@@ -273,4 +274,357 @@ details[open]{
     outline-style: solid;
     border-radius: 5px;
     padding: 5px;
+}
+
+
+/* AUDIO */
+
+.caudio-player-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 350px;
+    height: 44px;
+    margin: -55px 20px 15px;
+    background-color: #7d734f;
+    padding: 0 12px;
+    border-radius: 22px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    user-select: none;
+}
+
+/* Native Hidden Audio Element */
+#caudio-native-element {
+    display: none;
+}
+
+/* Play/Pause Button: Perfect Circle, Transparent BG, Pink Neon Border */
+.caudio-play-btn {
+    background-color: transparent;
+    border: 2px solid #ff52a0;
+    color: #ff52a0;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.caudio-play-btn:hover {
+    transform: scale(1.08);
+    background-color: rgba(255, 82, 160, 0.12);
+    box-shadow: 0 0 8px rgba(255, 82, 160, 0.35);
+}
+
+.caudio-play-btn:active {
+    transform: scale(0.92);
+}
+
+.caudio-play-btn-svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    display: block;
+}
+
+/* Progress Bar Track Container */
+.caudio-progress-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+/* Custom Input Range Progress Bar */
+.caudio-progress-bar {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    background: linear-gradient(to right, #ff52a0 0%, #2a2a2a 0%);
+    transition: background 0.1s ease;
+    margin: 0;
+}
+
+/* Thumb Handle - Chrome/Safari/Edge */
+.caudio-progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ff52a0;
+    box-shadow: 0 0 8px rgba(255, 82, 160, 0.85);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.caudio-progress-bar::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    box-shadow: 0 0 12px rgba(255, 82, 160, 1);
+}
+
+/* Thumb Handle - Firefox */
+.caudio-progress-bar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    background-color: #ff52a0;
+    box-shadow: 0 0 8px rgba(255, 82, 160, 0.85);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.caudio-progress-bar::-moz-range-thumb:hover {
+    transform: scale(1.25);
+    box-shadow: 0 0 12px rgba(255, 82, 160, 1);
+}
+
+/* Time Display Counter */
+.caudio-time-display {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #ffe066;
+    white-space: nowrap;
+    letter-spacing: -0.2px;
+    flex-shrink: 0;
+}
+
+/* Menu Hamburger Button */
+.caudio-menu-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.65);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    outline: none;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.caudio-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.caudio-menu-btn:active {
+    transform: scale(0.92);
+}
+
+.caudio-menu-btn-svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    display: block;
+}
+
+/* iOS Style Glassmorphism Menu Popup Wrapper */
+.caudio-ios-menu-wrapper {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: 0;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.caudio-ios-menu-wrapper.caudio-active {
+    pointer-events: auto;
+}
+
+/* iOS Glassmorphism Card Container */
+.caudio-ios-menu {
+    width: 210px;
+    background: rgba(28, 28, 30, 0.78);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 6px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.65), 0 0 0 0.5px rgba(255, 255, 255, 0.1) inset;
+    transform-origin: bottom right;
+    transform: scale(0.4) translateY(12px);
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+    box-sizing: border-box;
+}
+
+.caudio-ios-menu-wrapper.caudio-active .caudio-ios-menu {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Menu Section & Dividers */
+.caudio-menu-section {
+    padding: 6px 8px;
+}
+
+.caudio-menu-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 2px 0;
+}
+
+.caudio-menu-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Volume Control Inside iOS Menu */
+.caudio-volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.caudio-volume-svg {
+    width: 14px;
+    height: 14px;
+    fill: rgba(255, 255, 255, 0.7);
+    flex-shrink: 0;
+    display: block;
+}
+
+.caudio-volume-bar {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    background: linear-gradient(to right, #ffffff 100%, rgba(255, 255, 255, 0.2) 0%);
+    margin: 0;
+}
+
+.caudio-volume-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.caudio-volume-bar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+/* Playback Speed Switcher */
+.caudio-speed-options {
+    display: flex;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 2px;
+    border-radius: 8px;
+    gap: 2px;
+}
+
+.caudio-speed-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    outline: none;
+}
+
+.caudio-speed-btn:hover {
+    color: #ffffff;
+}
+
+.caudio-speed-btn.caudio-speed-active {
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Download Audio Link Button */
+.caudio-menu-action-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    transition: background 0.15s ease, transform 0.1s ease;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.caudio-menu-action-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.caudio-menu-action-btn:active {
+    transform: scale(0.98);
+}
+
+.caudio-download-svg {
+    width: 14px;
+    height: 14px;
+    fill: #ff52a0;
+    display: block;
+}
+
+/* Corrección de Hover para el botón de ventana */
+button.caudio-menu-action-btn {
+    text-align: left;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+button.caudio-menu-action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }
