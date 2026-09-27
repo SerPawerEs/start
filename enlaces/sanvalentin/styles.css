@@ -1,0 +1,520 @@
+body{
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    overflow: hidden;
+    background: linear-gradient(45deg, rgb(255, 86, 210), rgb(246, 165, 255));
+}
+
+.error{
+    visibility: hidden;
+}
+
+.fondos{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.ctc{
+    text-align: center;
+    rotate: -17deg;
+    transform: translate(5px, 65px);
+    user-select: none;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+#imagen1{
+    display: flex;
+    background-image: url(resources/cartaconcorazon.jpg);
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    aspect-ratio: 1/1;
+    align-items: center;
+    justify-content: center;
+    text-orientation: 20deg;
+
+    opacity: 1;
+    animation: intro 1s ease forwards;
+}
+
+@keyframes intro {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes outro {
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes click {
+    0% {
+        display: flex;
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        display: flex;
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+
+@keyframes spawn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#page1{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border-style: double;
+    background-color: rgba(253, 164, 255, 0.8);
+    top: 10%;
+    left: 10%;
+    bottom: 5%;
+    right: 10%;
+    opacity: 0;
+    animation: none;
+    visibility: hidden;
+    align-items: center;
+}
+
+.headder{
+    display: flex;
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-content: space-between;
+    text-align: center;
+    width: 90%;
+}
+
+.sb{
+    font-size: 10px;
+    font-family: cursive;
+}
+
+.line{
+    display: flex;
+
+    height: 1px;
+    background-color: black;
+    overflow: visible;
+    font-size: 1px;
+    margin-top: 0px;
+    width: 90%;
+}
+
+.title{
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.imgtitle{
+    background-image: url(resources/titlesanvalentin.PNG);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 80%;
+    aspect-ratio: 3/1;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    margin: 20px;
+}
+
+.center{
+    text-align: center;
+}
+
+#container{
+    display: flex;
+    margin: 10px;
+    max-height: 35vh;
+    justify-content: space-between;
+}
+
+#text1{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    margin: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.divline{
+    background-color: black;
+    width: 2px;
+    box-sizing: border-box;
+}
+
+#imgs{
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+}
+
+.border{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.473);
+    outline-style: solid;
+    outline-color: black;
+    outline-width: 2px;
+    padding: 3px;
+    margin: 10px;
+    overflow: hidden;
+}
+
+.tulipanes{
+    background-image: url(resources/tulipanes.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 140px;
+    height: 80px;
+}
+
+.girasoles{
+    background-image: url(resources/girasoles.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 140px;
+    height: 45px;
+}
+
+.btn1{
+    position: absolute;
+    left: 0px;
+    bottom: 101%;
+    background-color:rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 5px;
+    user-select: none;
+}
+
+.btn2{
+    position: absolute;
+    right: 0px;
+    bottom: 101%;
+    background-color:rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 5px;
+    user-select: none;
+}
+
+#page2{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border-style: double;
+    background-color: rgba(253, 164, 255, 0.8);
+    top: 10%;
+    left: 10%;
+    bottom: 5%;
+    right: 10%;
+    opacity: 0;
+    animation: none;
+    visibility: hidden;
+    align-items: center;
+}
+
+.textpage2{
+    padding: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.invits {
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    width: 95%;
+    margin-top: 10px;
+    padding: 5px;
+    background: linear-gradient(135deg, rgb(251, 0, 255), rgb(227, 0, 0));
+    background-size: 200%;
+    background-position: 0%;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.invits:hover {
+    background-position: 100%;
+}
+
+#deco1{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-image: url(resources/flores1.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
+    aspect-ratio: 1/1;
+    rotate: 135deg;
+    transform: translateY(50%);
+}
+
+
+#deco2{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    background-image: url(resources/flores2.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
+    aspect-ratio: 1/1;
+    rotate: -45deg;
+    transform: translateY(50%);
+}
+
+#deco3{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-image: url(resources/flores3.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
+    aspect-ratio: 1/1;
+    rotate: -135deg;
+    transform: translateY(50%);
+}
+
+#deco4{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    background-image: url(resources/flores4.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
+    aspect-ratio: 1/1;
+    rotate: 45deg;
+    transform: translateY(50%);
+}
+
+#grancora{
+    display: none;
+    position: absolute;
+    font-size: 200px;
+    animation: none;
+    padding: 0px;
+    opacity: 0;
+    z-index: 2;
+    user-select: none;
+}
+
+#page3{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border-style: double;
+    background-color: rgba(253, 164, 255, 0.8);
+    top: 10%;
+    left: 10%;
+    bottom: 5%;
+    right: 10%;
+    opacity: 0;
+    animation: none;
+    visibility: hidden;
+    align-items: center;
+}
+
+.selector{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    opacity: 0;
+    background: radial-gradient(rgba(216, 5, 240, 0.8), rgba(253, 164, 255, 0) 70%);
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 20px;
+    border-style: solid;
+    background: linear-gradient(90deg, rgb(255, 0, 123), rgb(234, 0, 255));
+    padding: 5px;
+    margin: 10px;
+    width: 60%;
+}
+
+#page4{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(208, 0, 255, 0.75), rgba(255, 0, 166, 0.75));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: none;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+#txtpage4{
+    margin: 20px;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: absolute;
+    opacity: 0;
+    z-index: 1;
+}
+
+#corac-s{
+    position: absolute;
+    transform: translate(-60px, 160px);
+    background-image: url(resources/corazonjeje.PNG);
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    rotate: -25deg;
+    margin: 20px;
+    width: 100%;
+    height: 100px;
+    opacity: 0;
+}
+
+#corazonrosa{
+    position: absolute;
+    transform: translate(60px, -160px);
+    background-image: url(resources/corazonrosa.png);
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    rotate: -25deg;
+    margin: 20px;
+    width: 100%;
+    height: 100px;
+    opacity: 0;
+}
+
+.decosuperior{
+    position: absolute;
+    width: 100%;
+    height: 30vh;
+    top: -50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: none;
+    overflow: visible;
+    rotate: 180deg;
+}
+
+.pg4-1{
+    background-image: url(resources/tulip1.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 30vh;
+    transform: scale(2);
+    opacity: 0;
+}
+.pg4-c{
+    background-image: url(resources/tulip2.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 30vh;
+    transform: scale(2);
+    z-index: 1;
+    opacity: 0;
+}
+
+
+.decoinferior{
+    position: absolute;
+    width: 100%;
+    height: 30vh;
+    bottom: -50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: none;
+    overflow: visible;
+}
+
+.back{
+    position: absolute;
+    z-index: 1;
+    bottom: 5%;
+    width: 200px;
+    margin: 20px;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 20px;
+    border-style: solid;
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.75), rgba(242, 0, 255, 0.75));
+    opacity: 0;
+}
+
+
+
+@media (min-width: 768px) {
+    body{
+        content: 'dispositivo no compatible';
+        opacity: 0;
+        background: linear-gradient(-45deg, red, rgb(128, 0, 100));
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100vh;
+        margin: 0px;
+    }
+}

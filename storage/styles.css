@@ -1,5 +1,5 @@
 html, body{
-    background-image: url('../content/texture8.png');
+    background-image: url('../content/fondonotas.png');
     background-size: 105% 105%;
     background-repeat: no-repeat;
     background-position: center;
@@ -39,6 +39,73 @@ html, body{
 }
 
 
+.fondos{
+    z-index: 0;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+}
+#deco1{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-image: url(../content/flores1.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
+    aspect-ratio: 1/1;
+    rotate: 135deg;
+    transform: translateY(50%);
+}
+
+
+#deco2{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    background-image: url(../content/flores2.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
+    aspect-ratio: 1/1;
+    rotate: -45deg;
+    transform: translateY(50%);
+}
+
+#deco3{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-image: url(../content/flores3.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
+    aspect-ratio: 1/1;
+    rotate: -135deg;
+    transform: translateY(50%);
+}
+
+#deco4{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    background-image: url(../content/flores4.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40vh;
+    aspect-ratio: 1/1;
+    rotate: 45deg;
+    transform: translateY(50%);
+}
+
+
+
 #scont{
     width: 100%;
     display: flex;
@@ -76,22 +143,22 @@ html, body{
 }
 
 #input{
-    background-color: rgba(208, 208, 208, 0.8);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 10px;
-    border-radius: 10px;
+    border-color: white;
     margin-top: 50px;
 }
 
 #ver{
-    background-color: rgba(208, 208, 208, 0.8);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 10px;
-    border-radius: 10px;
+    border-color: white;
     margin-top: 50px;
     transition: all 0.2s;
 }
 
 #ver:hover{
-    background-color: rgba(253, 213, 127, 0.8);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 #alert{
@@ -106,16 +173,15 @@ html, body{
 }
 
 #submit{
-    background-color: rgba(208, 208, 208, 0.8);
-    border-radius: 10px;
-    position: relative;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-color: white;    position: relative;
     width: 100%;
     height: 50px;
     transition: all 0.2s;
 }
 
 #submit:hover{
-    background-color: rgba(252, 210, 120, 0.8);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /*main*/

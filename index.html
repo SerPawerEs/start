@@ -8,10 +8,16 @@
     <link rel="icon" type="image/png" href="content/dinoicon.png">
 </head>
 <body>
+    <div class="fondos">
+        <div id="deco1"></div>
+        <div id="deco2"></div>
+        <div id="deco3"></div>
+        <div id="deco4"></div>
+    </div>
     <div class="gen-container">
         <div class="container">
             <form onsubmit="verify(event)">
-                <p><h2>Ingrese la contraseña</h2></p>
+                <p><h2>Ingrese la Contraseña</h2></p>
                 <input type="password" id="input" placeholder="Contraseña" required autocomplete="off">
                 <button type="button" id="ver">Ver</button><br>
                 <p id="alert"></p>
@@ -19,6 +25,7 @@
             </form>
         </div>
     </div>
+
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="storage/login.js"></script>
