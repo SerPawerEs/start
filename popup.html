@@ -31,7 +31,36 @@
         .popup-controls-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+        }
+        .popup-control-btn {
+            background: transparent;
+            border: none;
+            color: #ff52a0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.15s, background-color 0.15s;
+            outline: none;
+            padding: 0;
+            flex-shrink: 0;
+        }
+        .popup-control-btn:hover {
+            transform: scale(1.15);
+            background-color: rgba(255, 82, 160, 0.15);
+        }
+        .popup-control-btn:active {
+            transform: scale(0.9);
+        }
+        .popup-control-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            display: block;
         }
         .popup-section-title {
             font-size: 0.8rem;
@@ -73,11 +102,17 @@
 <body>
     <div id="popup-song-title" class="popup-title">Reproduciendo...</div>
 
-    <!-- Barra de progreso y tiempo -->
+    <!-- Barra de progreso y tiempo con controles anterior/siguiente -->
     <div class="popup-controls-row">
-        <button id="caudio-playBtn" class="caudio-play-btn" aria-label="Reproducir/Pausar">
+        <button id="caudio-prevBtn" class="popup-control-btn" aria-label="Canción anterior" title="Anterior">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path></svg>
+        </button>
+        <button id="caudio-playBtn" class="caudio-play-btn" aria-label="Reproducir/Pausar" title="Reproducir/Pausar">
             <svg id="caudio-icon-play" class="caudio-play-btn-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
             <svg id="caudio-icon-pause" class="caudio-play-btn-svg" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+        </button>
+        <button id="caudio-nextBtn" class="popup-control-btn" aria-label="Canción siguiente" title="Siguiente">
+            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path></svg>
         </button>
         <div class="caudio-progress-container" style="flex:1;">
             <input type="range" id="caudio-progressBar" class="caudio-progress-bar" value="0" min="0" max="100">
@@ -119,21 +154,26 @@
     </div>
 
     <script>
-        const songPath = localStorage.getItem('popup_song_path');
-        const songName = localStorage.getItem('popup_song_name') || 'Audio';
-        const songTime = parseFloat(localStorage.getItem('popup_song_time') || 0);
-        const songSpeed = parseFloat(localStorage.getItem('popup_song_speed') || 1);
-        const songVolume = parseFloat(localStorage.getItem('popup_song_volume') || 1);
+        const songsnames = [
+            'M.A.I', 'Dandelions', 'Mi corazon es tuyo', 'Hadal Ahbek', 'I wanna be yours', 'A vos'
+        ];
+        const songsmp3 = songsnames.map(song => 'audios/' + song + '.mp3');
 
-        document.getElementById('popup-song-title').textContent = songName;
+        let songPath = localStorage.getItem('popup_song_path');
+        let currentSongIndex = parseInt(localStorage.getItem('popup_song_index') ?? -1);
+        if (currentSongIndex === -1 && songPath) {
+            currentSongIndex = songsmp3.indexOf(songPath);
+        }
+        if (currentSongIndex === -1) currentSongIndex = 0;
 
-        const audio = new Audio(songPath);
-        audio.currentTime = songTime;
-        audio.playbackRate = songSpeed;
-        audio.volume = songVolume;
-        audio.loop = true;
+        let songTime = parseFloat(localStorage.getItem('popup_song_time') || 0);
+        let songSpeed = parseFloat(localStorage.getItem('popup_song_speed') || 1);
+        let songVolume = parseFloat(localStorage.getItem('popup_song_volume') || 1);
 
+        const titleEl = document.getElementById('popup-song-title');
         const playBtn = document.getElementById('caudio-playBtn');
+        const prevBtn = document.getElementById('caudio-prevBtn');
+        const nextBtn = document.getElementById('caudio-nextBtn');
         const iconPlay = document.getElementById('caudio-icon-play');
         const iconPause = document.getElementById('caudio-icon-pause');
         const progressBar = document.getElementById('caudio-progressBar');
@@ -143,21 +183,153 @@
         const downloadLink = document.getElementById('caudio-downloadLink');
         const returnBtn = document.getElementById('caudio-returnBtn');
 
-        downloadLink.href = songPath;
-        downloadLink.download = `${songName}.mp3`;
-        volumeSlider.value = songVolume;
-
-        function formatTime(seconds) {
-            if (isNaN(seconds)) return "0:00";
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        }
+        let audio = new Audio(songsmp3[currentSongIndex]);
+        audio.currentTime = songTime;
+        audio.playbackRate = songSpeed;
+        audio.volume = songVolume;
+        audio.loop = false;
 
         function updateUI(isPlaying) {
             iconPlay.style.display = isPlaying ? 'none' : 'block';
             iconPause.style.display = isPlaying ? 'block' : 'none';
         }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds < 0) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function setupMediaSession() {
+            if (!('mediaSession' in navigator)) return;
+
+            const actionHandlers = [
+                ['play', () => { if (audio.paused) audio.play(); }],
+                ['pause', () => { if (!audio.paused) audio.pause(); }],
+                ['previoustrack', () => { playPrevSong(); }],
+                ['nexttrack', () => { playNextSong(); }],
+                ['seekto', (details) => {
+                    if (details.seekTime !== undefined && audio.duration) {
+                        audio.currentTime = details.seekTime;
+                        updateMediaSessionPosition();
+                    }
+                }],
+                ['seekbackward', (details) => {
+                    audio.currentTime = Math.max(0, audio.currentTime - (details.seekOffset || 10));
+                    updateMediaSessionPosition();
+                }],
+                ['seekforward', (details) => {
+                    audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + (details.seekOffset || 10));
+                    updateMediaSessionPosition();
+                }]
+            ];
+
+            actionHandlers.forEach(([action, handler]) => {
+                try { navigator.mediaSession.setActionHandler(action, handler); } catch (e) {}
+            });
+        }
+
+        function updateMediaSessionMetadata() {
+            if (!('mediaSession' in navigator)) return;
+            try {
+                const iconUrl = new URL('content/icon.png', window.location.href).href;
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: songsnames[currentSongIndex],
+                    artist: 'Para Mi Niña Hermosa 💞',
+                    album: 'Nuestras Canciones',
+                    artwork: [
+                        { src: iconUrl, sizes: '96x96', type: 'image/png' },
+                        { src: iconUrl, sizes: '128x128', type: 'image/png' },
+                        { src: iconUrl, sizes: '192x192', type: 'image/png' },
+                        { src: iconUrl, sizes: '256x256', type: 'image/png' },
+                        { src: iconUrl, sizes: '512x512', type: 'image/png' }
+                    ]
+                });
+            } catch (e) {}
+        }
+
+        function updateMediaSessionPosition() {
+            if (!('mediaSession' in navigator) || !('setPositionState' in navigator.mediaSession) || !audio) return;
+            if (!isNaN(audio.duration) && audio.duration > 0) {
+                try {
+                    navigator.mediaSession.setPositionState({
+                        duration: audio.duration,
+                        playbackRate: audio.playbackRate || 1,
+                        position: Math.min(Math.max(0, audio.currentTime), audio.duration)
+                    });
+                } catch (e) {}
+            }
+        }
+
+        function loadSong(index, autoPlay = true) {
+            currentSongIndex = (index + songsnames.length) % songsnames.length;
+            const currentSpeed = audio.playbackRate;
+            const currentVol = audio.volume;
+
+            audio.pause();
+            audio = new Audio(songsmp3[currentSongIndex]);
+            audio.currentTime = 0;
+            audio.playbackRate = currentSpeed;
+            audio.volume = currentVol;
+            audio.loop = false;
+
+            titleEl.textContent = songsnames[currentSongIndex];
+            downloadLink.href = songsmp3[currentSongIndex];
+            downloadLink.download = `${songsnames[currentSongIndex]}.mp3`;
+
+            bindAudioEvents();
+            updateMediaSessionMetadata();
+
+            if (autoPlay) {
+                audio.play().catch(e => console.warn(e));
+            }
+        }
+
+        function playNextSong() {
+            loadSong(currentSongIndex + 1, true);
+        }
+
+        function playPrevSong() {
+            if (audio.currentTime > 3) {
+                audio.currentTime = 0;
+                if (audio.paused) audio.play();
+            } else {
+                loadSong(currentSongIndex - 1, true);
+            }
+        }
+
+        function bindAudioEvents() {
+            audio.addEventListener('play', () => {
+                updateUI(true);
+                if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+            });
+            audio.addEventListener('pause', () => {
+                updateUI(false);
+                if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
+            });
+            audio.addEventListener('timeupdate', () => {
+                if (audio.duration) {
+                    const percentage = (audio.currentTime / audio.duration) * 100;
+                    progressBar.value = percentage;
+                    progressBar.style.background = `linear-gradient(to right, #ff52a0 ${percentage}%, #2a2a2a ${percentage}%)`;
+                    timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+                }
+                updateMediaSessionPosition();
+            });
+            audio.addEventListener('ended', () => {
+                playNextSong();
+            });
+        }
+
+        titleEl.textContent = songsnames[currentSongIndex];
+        downloadLink.href = songsmp3[currentSongIndex];
+        downloadLink.download = `${songsnames[currentSongIndex]}.mp3`;
+        volumeSlider.value = songVolume;
+
+        bindAudioEvents();
+        setupMediaSession();
+        updateMediaSessionMetadata();
 
         playBtn.addEventListener('click', () => {
             if (audio.paused) {
@@ -167,21 +339,18 @@
             }
         });
 
-        audio.addEventListener('play', () => updateUI(true));
-        audio.addEventListener('pause', () => updateUI(false));
+        prevBtn.addEventListener('click', () => {
+            playPrevSong();
+        });
 
-        audio.addEventListener('timeupdate', () => {
-            if (audio.duration) {
-                const percentage = (audio.currentTime / audio.duration) * 100;
-                progressBar.value = percentage;
-                progressBar.style.background = `linear-gradient(to right, #ff52a0 ${percentage}%, #2a2a2a ${percentage}%)`;
-                timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-            }
+        nextBtn.addEventListener('click', () => {
+            playNextSong();
         });
 
         progressBar.addEventListener('input', () => {
             if (audio.duration) {
                 audio.currentTime = (progressBar.value / 100) * audio.duration;
+                updateMediaSessionPosition();
             }
         });
 
@@ -198,11 +367,12 @@
                 speedButtons.forEach(b => b.classList.remove('caudio-speed-active'));
                 btn.classList.add('caudio-speed-active');
                 audio.playbackRate = parseFloat(btn.dataset.speed);
+                updateMediaSessionPosition();
             });
         });
 
         function saveReturnData() {
-            localStorage.setItem('popup_return_path', songPath);
+            localStorage.setItem('popup_return_path', songsmp3[currentSongIndex]);
             localStorage.setItem('popup_return_time', audio.currentTime);
             localStorage.setItem('popup_return_speed', audio.playbackRate);
             localStorage.setItem('popup_return_volume', audio.volume);
@@ -213,12 +383,11 @@
             window.close();
         });
 
-        // Asegura transferir datos si la ventana se cierra con el botón "X"
         window.addEventListener('beforeunload', () => {
             saveReturnData();
         });
 
-        audio.play();
+        audio.play().catch(e => console.warn(e));
     </script>
 </body>
 </html>

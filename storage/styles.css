@@ -252,7 +252,7 @@ main{
     display: flex;
     flex-direction: column;
     padding: 10px;
-    margin: 0;
+    margin: 0 0 50px 0;
     overflow-x: hidden;
     overflow-y: scroll;
     z-index: 0;
@@ -349,19 +349,58 @@ details[open]{
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
-    max-width: 350px;
+    max-width: 380px;
     height: 44px;
     margin: -55px 20px 15px;
     background-color: #7d734f;
-    padding: 0 12px;
+    padding: 0 10px;
     border-radius: 22px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
     user-select: none;
+    z-index: 100;
+}
+
+/* Previous & Next Track Buttons */
+.caudio-control-btn {
+    background-color: transparent;
+    border: none;
+    color: #ff52a0;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+    padding: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.caudio-control-btn:hover {
+    transform: scale(1.15);
+    background-color: rgba(255, 82, 160, 0.15);
+    box-shadow: 0 0 8px rgba(255, 82, 160, 0.35);
+}
+
+.caudio-control-btn:active {
+    transform: scale(0.9);
+}
+
+.caudio-control-btn-svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    display: block;
 }
 
 /* Native Hidden Audio Element */

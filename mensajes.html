@@ -22,7 +22,7 @@
             <div id="md_cont"></div>
             <details class="content">
                 <summary>➕ Añadir elemento</summary>
-                <form onsubmit="subir()" id="addelemnt">
+                <form onsubmit="subir(event)" id="addelemnt">
                     <input type="text" id="txttitulo" placeholder="Titulo" autocomplete="off" required>
                     <textarea type="text" id="txttext" placeholder="Escriba el mensaje" required></textarea>
                     <button type="submit" id="submitbtn">Enviar ✅</button>
@@ -30,9 +30,12 @@
             </details>
         </div>
     </main>
+    <div id="scont"></div>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="storage/db.js"></script>
+    <script src="storage/times.js"></script>
     <script src="storage/scripts.js"></script>
+    <script src="storage/songs.js"></script>
 </body>
 </html>
